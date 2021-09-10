@@ -1,6 +1,7 @@
 import time
 
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -9,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 def main():
     URL = 'https://www.twitter.com/login'
     driver = webdriver.Chrome(executable_path='./bin/chromedriver')
+    driver.implicitly_wait(7)
     driver.get(URL)
     assert "Twitter" in driver.title
 
@@ -35,8 +37,8 @@ def login(user, passw, dr=None):
         username.send_keys(f'{user}')
         password = form.find_element_by_xpath(
             "//input[@name='session[password]']")
-        password.send_keys(f'{passw}')
-        form.submit()
+        password.send_keys(f'{passw}', Keys.RETURN)
+
 
 def like_post(dr=None):
     if dr is not None:
